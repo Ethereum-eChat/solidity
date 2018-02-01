@@ -121,12 +121,12 @@ BOOST_AUTO_TEST_CASE(branches_for)
 BOOST_AUTO_TEST_CASE(branches_for_declared_in_init)
 {
 	CHECK(
-		"{ for { let a := 1 pop(a) } a { pop(a) } { pop(a) } }",
-		"{ for { let a := 1 pop(1) } 1 { pop(1) } { pop(1) } }"
+		"{ let b := 0 for { let a := 1 pop(a) } a { pop(a) } { b := 1 pop(a) } }",
+		"{ let b := 0 for { let a := 1 pop(1) } 1 { pop(1) } { b := 1 pop(1) } }"
 	);
 	CHECK(
-		"{ for { let a := 1 pop(a) } lt(a, 0) { pop(a) a := add(a, 3) } { pop(a) } }",
-		"{ for { let a := 1 pop(1) } lt(a, 0) { pop(a) a := add(a, 3) } { pop(a) } }"
+		"{ let b := 0 for { let a := 1 pop(a) } lt(a, 0) { pop(a) a := add(a, 3) } { b := 1 pop(a) } }",
+		"{ let b := 0 for { let a := 1 pop(1) } lt(a, 0) { pop(a) a := add(a, 3) } { b := 1 pop(a) } }"
 	);
 }
 
